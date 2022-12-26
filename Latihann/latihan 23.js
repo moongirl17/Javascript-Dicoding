@@ -32,7 +32,7 @@ const checkstock = () => {
 };
 
 const brewcoffee = () => {
-    console.log("membuat lopi anda..");
+    console.log("membuat Kopi anda..");
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve("kopi sudah siap");
@@ -40,10 +40,35 @@ const brewcoffee = () => {
     })
  };
 
+ 
+const boilWater = () => {
+    return new Promise((resolve, reject) => {
+        console.log('Memanaskan air...');
+        setTimeout(() => {
+          resolve('Air panas sudah siap!');
+        }, 2000);
+      });
+    };
+     
+    const grindCoffeeBeans = () => {
+      return new Promise((resolve, reject) => {
+        console.log('Menggiling biji kopi...');
+        setTimeout(() => {
+          resolve('Bubuk kopi sudah siap!');
+        }, 1000);
+      });
+    };
+
 const makeEspresso = () => {
     checkAvailability()
     .then((value) => {
         return checkstock();
+    })
+    .then((value) => {
+        console.log(value);
+        const Promises = [boilWater(), grindCoffeeBeans()];
+
+        return Promise.all(Promises);
     })
     .then((value) => {
         console.log(value)
@@ -58,5 +83,7 @@ const makeEspresso = () => {
         state.isCoffeMachineBusy = false;
     });
 }
+
+
 
 makeEspresso();
